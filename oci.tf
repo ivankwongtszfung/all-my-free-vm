@@ -33,11 +33,6 @@ resource "oci_core_instance" "atlas_instance" {
   }
 }
 
-data "oci_core_instance_devices" "atlas_instance_devices" {
-  count       = var.oci_num_instances
-  instance_id = oci_core_instance.atlas_instance[count.index].id
-}
-
 output "oci_instance_private_ips" {
   value = [oci_core_instance.atlas_instance.*.private_ip]
 }
@@ -48,10 +43,6 @@ output "oci_instance_public_ips" {
 
 output "oci_boot_volume_ids" {
   value = [oci_core_instance.atlas_instance.*.boot_volume_id]
-}
-
-output "oci_instance_devices" {
-  value = [data.oci_core_instance_devices.atlas_instance_devices.*.devices]
 }
 
 resource "oci_core_vcn" "atlas_vcn" {
