@@ -6,12 +6,12 @@ data "google_compute_image" "debian" {
 resource "google_compute_instance" "free-instance-20240515-163538" {
   boot_disk {
     auto_delete = true
-    device_name = "instance-20240515-163538"
+    device_name = var.gcp_device_name
 
     initialize_params {
       image = data.google_compute_image.debian.self_link
       size  = var.gcp_memory_in_gbs
-      type  = "pd-standard"
+      type  = var.gcp_memory_type
     }
 
     mode = "READ_WRITE"
@@ -25,8 +25,8 @@ resource "google_compute_instance" "free-instance-20240515-163538" {
     goog-ec-src = "vm_add-tf"
   }
 
-  machine_type = "e2-micro"
-  name         = "free-instance-20240515-163538"
+  machine_type = var.gcp_vm_device_type
+  name         = var.gcp_instance_name
 
   network_interface {
     access_config {
@@ -35,7 +35,7 @@ resource "google_compute_instance" "free-instance-20240515-163538" {
 
     queue_count = 0
     stack_type  = "IPV4_ONLY"
-    subnetwork  = "projects/api-auth-service-423317/regions/us-west1/subnetworks/default"
+    subnetwork  = var.gcp_subnet_work
   }
 
   scheduling {
@@ -46,8 +46,8 @@ resource "google_compute_instance" "free-instance-20240515-163538" {
   }
 
   service_account {
-    email  = "350161083825-compute@developer.gserviceaccount.com"
-    scopes = ["https://www.googleapis.com/auth/devstorage.read_only", "https://www.googleapis.com/auth/logging.write", "https://www.googleapis.com/auth/monitoring.write", "https://www.googleapis.com/auth/service.management.readonly", "https://www.googleapis.com/auth/servicecontrol", "https://www.googleapis.com/auth/trace.append"]
+    email  = var.gcp_service_account_email
+    scopes = var.gcp_service_account_scopes
   }
 
   shielded_instance_config {
@@ -61,34 +61,4 @@ resource "google_compute_instance" "free-instance-20240515-163538" {
   }
 
   zone = var.gcp_zone
-}
-
-output "gcp_instance_name" {
-  description = "The name of the created instance"
-  value       = google_compute_instance.free-instance-20240515-163538.name
-}
-
-output "gcp_instance_zone" {
-  description = "The zone where the instance is deployed"
-  value       = google_compute_instance.free-instance-20240515-163538.zone
-}
-
-output "gcp_instance_self_link" {
-  description = "The self-link of the created instance"
-  value       = google_compute_instance.free-instance-20240515-163538.self_link
-}
-
-output "gcp_instance_network_interface" {
-  description = "The network interface details of the created instance"
-  value       = google_compute_instance.free-instance-20240515-163538.network_interface
-}
-
-output "gcp_instance_external_ip" {
-  description = "The external IP address of the created instance"
-  value       = google_compute_instance.free-instance-20240515-163538.network_interface[0].access_config[0].nat_ip
-}
-
-output "gcp_instance_internal_ip" {
-  description = "The internal IP address of the created instance"
-  value       = google_compute_instance.free-instance-20240515-163538.network_interface[0].network_ip
 }

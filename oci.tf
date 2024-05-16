@@ -33,18 +33,6 @@ resource "oci_core_instance" "atlas_instance" {
   }
 }
 
-output "oci_instance_private_ips" {
-  value = [oci_core_instance.atlas_instance.*.private_ip]
-}
-
-output "oci_instance_public_ips" {
-  value = [oci_core_instance.atlas_instance.*.public_ip]
-}
-
-output "oci_boot_volume_ids" {
-  value = [oci_core_instance.atlas_instance.*.boot_volume_id]
-}
-
 resource "oci_core_vcn" "atlas_vcn" {
   cidr_block     = "10.1.0.0/16"
   compartment_id = var.oci_compartment_ocid

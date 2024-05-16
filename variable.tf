@@ -148,11 +148,6 @@ variable "gcp_project" {
   description = "The name of your google-cloud project, e.g. 'free-micro-123456'"
 }
 
-# variable "gcp_credentials" {
-#   type        = string
-#   description = "The location of a google cloud credentials json file, e.g. '~/.config/gcloud/legacy_credentials/me@domain.com/adc.json'"
-# }
-
 variable "gcp_region" {
   type    = string
   default = "us-west1"
@@ -172,4 +167,43 @@ variable "gcp_memory_in_gbs" {
 variable "gcp_ssh_public_keys" {
   description = "Public SSH keys to be included in the ~/.ssh/authorized_keys file for the default user on the instance. To provide multiple keys, see docs/instance_ssh_keys.adoc."
   type        = string
+}
+
+variable "gcp_device_name" {
+  type        = string
+  description = "name of your device"
+}
+
+variable "gcp_memory_type" {
+  type        = string
+  description = "memory type of the gcp, for free tier pd-standard"
+  default     = "pd-standard"
+}
+
+variable "gcp_vm_device_type" {
+  type        = string
+  description = "the device type of your gcp instance, for free tier e2-micro"
+  default     = "e2-micro"
+}
+
+variable "gcp_instance_name" {
+  type        = string
+  description = "name of your gcp instance"
+}
+
+variable "gcp_subnet_work" {
+  type        = string
+  description = "the path to your subnetwork check your default path in gcp"
+  default     = "projects/api-auth-service-423317/regions/us-west1/subnetworks/default"
+}
+
+variable "gcp_service_account_email" {
+  type        = string
+  description = "email of your service account"
+}
+
+variable "gcp_service_account_scopes" {
+  type        = list(string)
+  description = "the scope of your service account, basically permission"
+  default     = ["https://www.googleapis.com/auth/devstorage.read_only", "https://www.googleapis.com/auth/logging.write", "https://www.googleapis.com/auth/monitoring.write", "https://www.googleapis.com/auth/service.management.readonly", "https://www.googleapis.com/auth/servicecontrol", "https://www.googleapis.com/auth/trace.append"]
 }
