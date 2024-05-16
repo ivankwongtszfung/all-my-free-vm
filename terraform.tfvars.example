@@ -1,0 +1,57 @@
+################################################################################################
+#                                  Oracle Cloud Parameter 
+################################################################################################
+# provider identity parameters
+oci_tenancy_ocid     = ""
+oci_user_ocid        = ""
+oci_fingerprint      = ""
+oci_region           = ""
+oci_private_key_path = ""
+
+# general oci parameters
+oci_compartment_ocid = ""
+
+# compute instance parameters
+oci_num_instances                       = 1
+oci_availability_domain                 = 1
+oci_instance_name                       = "Atlas"
+oci_instance_state                      = "RUNNING"
+oci_instance_shape                      = "VM.Standard.A1.Flex"
+oci_instance_ocpus                      = 4
+oci_instance_shape_config_memory_in_gbs = 24
+oci_boot_volume_size_in_gbs             = 200
+
+# operating system parameters
+oci_ssh_public_keys = <<EOT
+<ssh-key-1>
+<ssh-key-2>
+EOT
+
+# Auto configure iptables to allow inbound traffic
+oci_auto_iptables   = false
+oci_ssh_private_key = <private-key-path>
+
+
+################################################################################################
+#                                   Google Cloud Parameter 
+################################################################################################
+gcp_project       = ""
+gcp_project_id    = ""
+gcp_region        = ""
+gcp_zone          = ""
+gcp_memory_in_gbs = 30
+# operating system parameters
+gcp_ssh_public_keys = <<EOT
+username-1:<ssh-key-1>
+username-2:<ssh-key-2>
+EOT
+
+gcp_device_name    = ""
+gcp_memory_type    = ""
+gcp_vm_device_type = ""
+gcp_instance_name  = ""
+
+gcp_subnet_work = ""
+
+gcp_service_account_email  = ""
+gcp_service_account_scopes = []
