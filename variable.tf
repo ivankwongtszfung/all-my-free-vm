@@ -124,7 +124,7 @@ variable "oci_instance_source_type" {
 }
 
 variable "oci_boot_volume_size_in_gbs" {
-  default     = "200"
+  default     = "50"
   description = "Boot volume size in GBs"
   type        = number
 }
