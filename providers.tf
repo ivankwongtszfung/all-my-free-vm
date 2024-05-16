@@ -1,5 +1,11 @@
 terraform {
+  backend "s3" {}
+
   required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~>4.0"
+    }
     oci = {
       source  = "oracle/oci"
       version = ">= 4.108.0"
